@@ -1,0 +1,4 @@
+move .xml and .jsp files into mondrian directory
+open phpMyAdmin and import query files
+place all files into a folder to htdocs directory
+run xampp
