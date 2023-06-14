@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<Schema name="adventureworks">
+    <!-- Shared dimensions -->
+
+    <!-- Sales -->
+    <Cube name="Jual" defaultMeasure="Sales">
+        <Table name="fact_table"/>
+        
+        <Dimension name="Time" foreignKey="time_id">
+            <Hierarchy hasAll="true" allMemberName="All Times" primaryKey="Time_id">
+                <Table name="time"/>
+                <Level name="Year" column="tahun" type="Numeric" uniqueMembers="true"
+                    levelType="TimeYears"/>
+                <Level name="Month" column="bulan" uniqueMembers="false" type="Numeric"
+                    levelType="TimeMonths"/>
+                <Level name="Date" column="tanggal" uniqueMembers="false" type="Numeric"
+                    levelType="TimeDays"/>
+            </Hierarchy>
+        </Dimension>
+        
+        <Dimension name="Territory" foreignKey="TerritoryID">
+            <Hierarchy hasAll="true" allMemberName="All Territory" primaryKey="TerritoryID">
+                <Table name="territory"/>
+                <Level name="TerritoryGroup" column="Group"/>
+                <Level name="TerritoryName" column="Name"/>
+            </Hierarchy>
+        </Dimension>
+            
+        <Dimension name="Shipmethod" foreignKey="ShipMethodID">
+            <Hierarchy hasAll="true" allMemberName="All Method" primaryKey="ShipMethodID">
+                <Table name="shipmethod"/>
+                <Level name="ShipMethodName" column="Name"/>                
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Product" foreignKey="ProductID">
+            <Hierarchy hasAll="true" allMemberName="All Products" primaryKey="ProductID">
+                <Table name="product"/>                
+                <Level name="Category" column="ProductCategory"/>                
+                <Level name="ProductName" column="Name"/>
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="SpecialOffer" foreignKey="SpecialOfferID">
+            <Hierarchy hasAll="true" allMemberName="All Special Offer" primaryKey="SpecialOfferID">
+                <Table name="specialoffer"/>
+                <Level name="Description" column="Description"/>                
+            </Hierarchy>
+        </Dimension>
+        
+        <Measure name="OrderQty" column="OrderQty" aggregator="sum" formatString="Standard"/>
+        <Measure name="LineTotal" column="LineTotal" aggregator="sum" formatString="Standard"/>
+    </Cube>
+</Schema>
